@@ -1,43 +1,61 @@
 // #1
-
-function success()
+function task1()
 {
-    console.log("Udało się!");
-}
+    function success()
+    {
+        console.log("Udało się!");
+    }
 
-success();
+    success();
+}
 
 // #2
-
-function param(param1)
+function task2()
 {
-    console.log(param1);
-}
+    function param(param1)
+    {
+        console.log(param1);
+    }
 
-param("Can be a number");
+    param("Can be a number");
+}
 
 // #3
-
-function table(table)
+function task3()
 {
-    return table;
-}
+    function table(table)
+    {
+        return table;
+    }
 
-let tab = ["one", 2, "three"];
-console.log(table(tab));
+    let tab = ["one", 2, "three"];
+    console.log(table(tab));
+}
 
 // #4
-
-function paramString(string)
+function task4()
 {
-    let counter = 0;
-    let interval = setInterval(function() {
-        console.log(string);
-        counter++;
+    function paramString(string)
+    {
+        let counter = 0;
+        let interval = setInterval(function() {
+            console.log(string);
+            counter++;
 
-        if(counter >= 5)
-            clearInterval(interval);
-    }, 3);
+            if(counter >= 5)
+            {
+                clearInterval(interval);
+                console.log('Koniec');
+            }
+        }, 3000);
+    }
+
+    paramString("hello there");
 }
 
-paramString("hello there");
+
+//
+task1();
+task2();
+task3();
+task4();
