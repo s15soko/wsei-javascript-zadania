@@ -86,6 +86,130 @@ function task5()
     element.classList = "dodanieKlasyDlaElementu";
 }
 
+// #6
+function task6()
+{
+    let div = document.getElementById("classes");
+
+    function showClasses(elementClasses)
+    {
+        let str = "";
+        elementClasses.forEach(className => {
+            console.log(className);
+            str += `+${className}`
+        });
+
+        str = str.substring(1);
+        console.log(str);
+    }
+
+    let classes = div.classList;
+    showClasses(classes);
+
+    div.classList = "";
+    console.log("Usunięto wszystkie klasy");
+}
+
+// #7
+function task7()
+{
+    let longList = document.getElementById("longList");
+    let elements = longList.querySelectorAll("li");
+
+    function addAttr(liElements)
+    {
+        elements.forEach(element => {
+            if(!element.hasAttribute("data-text")) {
+                element.setAttribute("data-text", "text");
+            }
+        });
+    }
+
+    addAttr(elements);
+}
+
+// #8
+function task8()
+{
+    function makeObject(string)
+    {   
+        let obj = {
+            newClass: string
+        };
+
+        return obj;
+    }
+
+    function readAndAssign(obj)
+    {
+        let div = document.getElementById("myDiv");
+        let newClass = obj.newClass;
+        div.classList.add(newClass);
+    }
+
+    let myObj = makeObject("string_z_parametru");
+    readAndAssign(myObj);
+}
+
+// #9
+function task9()
+{
+    function addClass(number, target)
+    {
+        if(number % 2 == 0) {
+            target.classList.add("even");
+        } else {
+            target.classList.add("odd");
+        }
+    }
+
+    let randomNumber = () => Math.floor(Math.random() * 11);   
+    let targetElement = document.getElementById("numbers");
+
+    addClass(randomNumber(), targetElement);
+}
+
+// #10
+function task10() 
+{
+    let longList = document.getElementById("longList");
+
+    function getValues(list)
+    {
+        let values = [];
+        let elements = list.querySelectorAll("li");
+        elements.forEach(element => {
+            values.push(element.innerHTML);
+        });
+
+        return values;
+    }
+
+    console.log(getValues(longList));
+}
+
+// #11
+function task11()
+{
+    let longList = document.getElementById("longList");
+    let children = longList.children;
+    let randomNumber = () => Math.floor(Math.random() * 11);  
+
+    //
+
+    function setChildrenData(elements)
+    {
+        for(element of elements)
+        {
+            let currentValue = element.innerHTML;
+            element.setAttribute("data-old-value", currentValue);
+            element.innerHTML = randomNumber();
+        }
+    }
+
+    setChildrenData(children);
+} 
+
 
 // 
 task1();
@@ -93,3 +217,9 @@ task2();
 task3();
 task4();
 task5();
+task6();
+task7();
+task8();
+task9();
+task10();
+task11();
