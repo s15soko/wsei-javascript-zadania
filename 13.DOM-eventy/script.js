@@ -88,8 +88,23 @@ function task4()
 // #5
 function task5()
 {
-    
+    let ex5 = document.getElementById("ex5");
+    let span = ex5.querySelector("span");
+    let button = document.getElementById("ex5-button");
 
+    let value = Number(span.innerHTML);
+
+    function increase()
+    {
+        value++;
+        span.innerHTML = value;
+
+        if(value >= 10) {
+            button.removeEventListener("click", increase);
+        }
+    }
+
+    button.addEventListener("click", increase);
 }
 
 // #6
@@ -115,89 +130,97 @@ function task7()
 
         this.div = function(number) {
             this.memory.push("Dzielnie");
-            this.result /= number;
+            this.result /= Number.parseFloat(number);
         }
 
         this.multi = function(number) {
             this.memory.push("Mnożenie");
-            this.result *= number;
+            this.result *= Number.parseFloat(number);
         }
 
         this.add = function(number) {
             this.memory.push("Dodawanie");
-            this.result += number;
+            this.result += Number.parseFloat(number);
         }
 
         this.sub = function(number) {
             this.memory.push("Odejmowanie");
-            this.result -= number;
+            this.result -= Number.parseFloat(number);
         }
 
         this.clear = function() {
             this.memory = [];
             this.result = 0;
         }
-
-        this.showResult = function() {
-            console.log(this.result);
-        }
     }
 
     let calc = new Calculator();
-    var number = "";
+    let calculatorElement = document.getElementById("calculator");
+    let screen = calculatorElement.querySelector("input");
+    let btns = calculatorElement.querySelectorAll("button");
 
-    document.addEventListener("keyup", function(event) {
-        let key = event.key;
-        
-        function makeAction()
-        {
-            console.log(`Current calc result: ${calc.result}`);
-            clearNumber();
-        }
-        function clearNumber()
-        {
-            number = "";
-        }
-        function getNumber()
-        {
-            if(number == "")
-                return 0;
+    //
 
-            return Number.parseFloat(number);
-        }
+    // let clearScreen = () => screen.value = ""; 
+    // let showCalcValue = () => screen.value = calc.result;
+    // let isSomeValueOnScreen = () => screen.value != "" && screen.value != null;
 
-        switch (key) {
-            case "+": // +
-                calc.add(getNumber());
-                makeAction();
-            break;
-            case "-": // -
-                calc.sub(getNumber());
-                makeAction();
-            break;
-            case "/": // dzielenie
-                calc.div(getNumber());
-                makeAction();
-            break;
-            case "*": // mnozenie
-                calc.multi(getNumber());
-                makeAction();
-            break;
-            case "Backspace": // clear
-                calc.clear();
-                makeAction();
-            break;
-            case "Enter": //
-                makeAction();
-            break;
-            default:
-                if(key == "." || (Number.parseFloat(key) >= 0 && Number.parseFloat(key) <= 9))
-                {
-                    number += key;
-                    console.log(`Current number: ${getNumber()}`);
-                }
-        }
-    });
+    // let makeAction = (actionKey) => {
+    //     switch (actionKey) {
+    //         case "+":
+    //             calc.add(screen.value);
+    //         break;
+    //         case "-":
+    //             calc.sub(screen.value);
+    //         break;
+    //         case "/":
+    //             calc.div(screen.value);
+    //         break;
+    //         case "*":
+    //             calc.multi(screen.value);
+    //         break;
+    //     }
+    // }
+
+    // let keyHolder = null;
+
+    // btns.forEach(btn => {
+    //     btn.addEventListener("click", function(event) {
+    //         let elem = event.target;
+    //         let value = elem.innerHTML;
+            
+    //         console.log(calc.result, keyHolder)
+    //         console.log(calc.memory)
+
+    //         if(["+", "-", "*", "/", "="].includes(value))
+    //         {
+    //             if(value == "=" )
+    //             {
+    //                 if(keyHolder != null)
+    //                 {
+    //                     makeAction(keyHolder);
+    //                     showCalcValue();
+
+    //                     keyHolder = null;
+    //                 }
+    //             }
+    //             else 
+    //             {
+    //                 keyHolder = value;
+
+    //                 if(isSomeValueOnScreen())
+    //                 {
+    //                     makeAction(value);
+    //                     clearScreen();
+    //                 }
+    //             }
+    //         } 
+    //         else 
+    //         {
+    //             screen.value = screen.value + `${value}`;
+    //         }
+    //     });
+    // }); 
 }
 
 //
