@@ -224,7 +224,103 @@ function task7()
 // #8
 function task8()
 {
-    // todo
+    let root = document.getElementById("root");
+
+    let btn = createNewElement("button");
+    btn.innerHTML = "Utwórz";
+
+    let form = createNewElement("div");
+    let inputElement = createNewElement("input");
+    inputElement.placeholder = "Typ elementu";
+    let inputText = createNewElement("input");
+    inputText.placeholder = "Tekst";
+    let inputColor = createNewElement("input");
+    inputColor.placeholder = "Kolor";
+    let inputCount = createNewElement("input");
+    inputCount.placeholder = "Ile razy";
+    inputCount.type = "number";
+
+    form.appendChild(inputElement);
+    form.appendChild(inputText);
+    form.appendChild(inputColor)
+    form.appendChild(inputCount);
+
+    root.appendChild(form);
+    root.append(btn);
+
+    btn.addEventListener("click", function ()
+    {
+        let count = inputCount.value;
+        if(isNaN(count) || count < 1)
+            return;
+
+        for(let i = 0; i < count; i++)
+        {
+            let newElement = createNewElement(inputElement.value);
+            newElement.innerHTML = inputText.value;
+            newElement.style.color = inputColor.value;
+            root.appendChild(newElement);
+        }
+    })
+}
+
+// #9
+function task9()
+{
+    // let root = document.getElementById("root");
+
+    // let storage = [];
+
+    // let form = createNewElement("div");
+    // let inpName = createNewElement("input");
+    // inpName.placeholder = "Imię";
+    // let inpLastName = createNewElement("input");
+    // inpLastName.placeholder = "Nazwisko";
+    // let inpAge = createNewElement("input");
+    // inpAge.placeholder = "Wiek";
+    // let inpChildrenCount = createNewElement("input");
+    // inpChildrenCount.placeholder = "Ilość dzieci";
+
+    // form.appendChild(inpName);
+    // form.appendChild(inpLastName);
+    // form.appendChild(inpAge);
+    // form.appendChild(inpChildrenCount);
+
+    // let table = createNewElement("table");
+    // let tr = createNewElement("tr");
+    // let thName = createNewElement("th");
+    // thName.innerHTML = "Imię";
+    // let thLastName = createNewElement("th");
+    // thLastName.innerHTML = "Nazwisko";
+    // let thAge = createNewElement("th");
+    // thAge.innerHTML = "Wiek";
+    // let thChildrenCount = createNewElement("th");
+    // thChildrenCount.innerHTML = "Ilość dzieci";
+    // tr.appendChild(thName);
+    // tr.appendChild(thLastName);
+    // tr.appendChild(thAge);
+    // tr.appendChild(thChildrenCount);
+    
+    // let tHead = createNewElement("thead");
+    // tHead.appendChild(tr);
+    // table.appendChild(tHead);
+
+    // let btnCreate = createNewElement("button");
+    // btnCreate.innerHTML = "Utwórz";
+    // let btnMore = createNewElement("button");
+    // btnMore.innerHTML = "Więcej";
+
+    // root.appendChild(form);
+    // root.appendChild(btnCreate);
+    // root.appendChild(btnMore);
+
+    // function createNew()
+    // {
+    //     storage[i] = 1;
+    // }
+
+    // btnCreate
+
 }
 
 
@@ -237,3 +333,4 @@ task5();
 task6();
 task7();
 task8();
+task9();
