@@ -323,6 +323,183 @@ function task9()
 
 }
 
+function task10()
+{
+
+}
+
+// #11
+function task11()
+{
+    let root = document.getElementById("root");
+    let isNumber = (str) => /^\d+$/.test(str);
+
+    function countNumbers(str)
+    {
+        let count = 0;
+        for(let i = 0; i < str.length; i++) {
+            if(isNumber(str[i]))
+                count++;
+        }
+
+        return count;
+    }
+
+    function someString(str)
+    {
+        let count = countNumbers(str);
+        console.log(`11) Suma liczb to: ${count}`)
+        
+        for(let i = 0; i < count; i++) {
+            let newElement = createNewElement("div");
+            newElement.innerHTML = str;
+            root.appendChild(newElement);
+        }
+    }
+
+    let someText = "To1JestMoj 1 TekstZ4LiczbamiANie3";
+    someString(someText);
+}
+
+// #12
+function task12()
+{
+    let myObj = {
+        name: ""
+    };
+
+    function someString(str)
+    {
+        myObj.name = str;
+
+        if(str.includes("Ala"))
+        {
+            myObj.name = str.replace("Ala", "Ola");
+            console.log(`12) ${myObj.name}`)
+        } else {
+            let root = document.getElementById("root");
+            let div = createNewElement("div");
+            div.innerHTML = "Słowo Ala nie występuje w tekście.";
+            root.appendChild(div);
+        }
+    }
+
+    let someText = "To jest tekst bez słowa Ala.";
+    someString(someText);
+}
+
+// #13
+function task13()
+{
+    let isLetter = (str) => str.length === 1 && str.match(/[a-z]/i);
+    let isNumber = (str) => /^\d+$/.test(str);
+
+    function newTable(strings)
+    {
+        let storage = [];
+        strings.forEach(string => {
+            for(let i = 0; i < string.length; i++) {
+                if(isLetter(string[i])) {
+                    if(string[i] in storage) {
+                        storage[string[i]] += 1;
+                    } else {
+                        storage[string[i]] = 1;
+                    }
+                }
+            }
+        });
+
+        return storage;
+    }
+
+    function sum(strings)
+    {
+        let sum = 0;
+        strings.forEach(string => {
+            for(let i = 0; i < string.length; i++) {
+                if(isNumber(string[i])) {
+                    sum += Number.parseInt(string[i]);
+                }
+            }
+        });
+
+        return sum;
+    }
+
+    function avg(strings)
+    {
+        let sum = 0;
+        let count = 0;
+        strings.forEach(string => {
+            for(let i = 0; i < string.length; i++) {
+                if(isNumber(string[i])) {
+                    count ++;
+                    sum += Number.parseInt(string[i]);
+                }
+            }
+        });
+
+        return sum / count;
+    }
+
+    let myStrings = ["To jest tablica", "która", "przechowuje", "jakieś słowa", "bez liczb takich jak", "np 1 czy 2", "koniec."];
+    console.log("13.1) ", newTable(myStrings));
+    console.log("13.2) ", sum(myStrings));
+    console.log("13.3) ", avg(myStrings));
+}
+
+// #14
+function task14()
+{
+    var myObj = {
+        name: '',
+        surname: '',
+        age: ''
+    }
+
+    var copy = Object.assign({}, myObj);
+
+    function newValues(name, surname, age)
+    {
+        myObj.name = name;
+        myObj.surname = surname;
+        myObj.age = age;
+        
+        //
+
+        function addField(attr, char)
+        {
+            let s = "";
+            for(let i = 0; i < name.length; i++) {
+                s += char;
+            }
+            myObj[s] = attr;
+        }
+        
+        addField(name, "n");
+        addField(surname, "s");
+        addField(age, "a");
+
+
+        if(name.length > 5 || surname.length > 5 || age.length > 5)
+        {
+            console.log(myObj);
+
+            let root = document.getElementById("root");
+            let button = createNewElement("button");
+            button.innerHTML = "Wróć do stanu początkowego";
+            root.appendChild(button);
+
+            button.addEventListener("click", function() {
+                myObj = copy;
+                console.log(myObj);
+            });
+        }
+    }
+
+    newValues("Tom", "Kowalski", 25);
+}
+
 
 // 
 task1();
@@ -334,3 +511,8 @@ task6();
 task7();
 task8();
 task9();
+task10();
+task11();
+task12();
+task13();
+task14();
