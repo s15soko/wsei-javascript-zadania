@@ -93,14 +93,12 @@ function task6()
 
     function showClasses(elementClasses)
     {
-        let str = "";
+        let arr = [];
         elementClasses.forEach(className => {
-            console.log(className);
-            str += `+${className}`
+            arr.push(className);
         });
 
-        str = str.substring(1);
-        console.log(str);
+        console.log(arr.join("+"));
     }
 
     let classes = div.classList;
