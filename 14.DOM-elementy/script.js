@@ -116,7 +116,7 @@ function task7()
 
     function addAttr(liElements)
     {
-        elements.forEach(element => {
+        liElements.forEach(element => {
             if(!element.hasAttribute("data-text")) {
                 element.setAttribute("data-text", "text");
             }
