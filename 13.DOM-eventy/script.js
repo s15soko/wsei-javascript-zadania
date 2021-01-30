@@ -127,6 +127,7 @@ function task7()
     {
         this.memory = [];
         this.result = 0;
+        this.currentActionKey = null;
 
         this.div = function(number) {
             this.memory.push("Dzielnie");
@@ -152,6 +153,26 @@ function task7()
             this.memory = [];
             this.result = 0;
         }
+
+        this.makeAction = function (value, defaultActionKey = null) 
+        {
+            let currentActionKey = defaultActionKey == null ? this.currentActionKey : defaultActionKey;
+
+            switch (currentActionKey) {
+                case "+":
+                    this.add(value);
+                break;
+                case "-":
+                    this.sub(value);
+                break;
+                case "/":
+                    this.div(value);
+                break;
+                case "*":
+                    this.multi(value);
+                break;
+            }
+        }
     }
 
     let calc = new Calculator();
@@ -161,66 +182,71 @@ function task7()
 
     //
 
-    // let clearScreen = () => screen.value = ""; 
-    // let showCalcValue = () => screen.value = calc.result;
-    // let isSomeValueOnScreen = () => screen.value != "" && screen.value != null;
+    let clearScreen = () => screen.value = ""; 
+    let showCalcValue = () => screen.placeholder = calc.result;
+    let getValue = () => Number.parseFloat(screen.value);
 
-    // let makeAction = (actionKey) => {
-    //     switch (actionKey) {
-    //         case "+":
-    //             calc.add(screen.value);
-    //         break;
-    //         case "-":
-    //             calc.sub(screen.value);
-    //         break;
-    //         case "/":
-    //             calc.div(screen.value);
-    //         break;
-    //         case "*":
-    //             calc.multi(screen.value);
-    //         break;
-    //     }
-    // }
+    let isSomeValueOnScreen = () => screen.value != "" && screen.value != null;
+    let isSomeAcionKey = () => calc.currentActionKey !== null;
 
-    // let keyHolder = null;
+    //
 
-    // btns.forEach(btn => {
-    //     btn.addEventListener("click", function(event) {
-    //         let elem = event.target;
-    //         let value = elem.innerHTML;
+    showCalcValue();
+
+    //
+
+    btns.forEach(btn => {
+        btn.addEventListener("click", function(event) {
+            let elem = event.target;
+            let value = elem.innerHTML;
+
+            let screenValue = getValue();
             
-    //         console.log(calc.result, keyHolder)
-    //         console.log(calc.memory)
+            if(["+", "-", "*", "/", "="].includes(value))
+            {
+                if(value === "=")
+                {
+                    if(isSomeAcionKey()) {
+                        if(!isNaN(screenValue)) {
+                            calc.makeAction(screenValue);
+                        }
+                        
+                    } else {
+                        if(!isNaN(screenValue))
+                        {
+                            calc.clear();
+                            calc.makeAction(screenValue, "+")
+                        }
+                    }
 
-    //         if(["+", "-", "*", "/", "="].includes(value))
-    //         {
-    //             if(value == "=" )
-    //             {
-    //                 if(keyHolder != null)
-    //                 {
-    //                     makeAction(keyHolder);
-    //                     showCalcValue();
+                    clearScreen();
+                }
+                else 
+                {
+                    if(isSomeAcionKey()) {
+                        if(!isNaN(screenValue)) {
+                            calc.makeAction(screenValue);
+                        }
+                        
+                    } else {
 
-    //                     keyHolder = null;
-    //                 }
-    //             }
-    //             else 
-    //             {
-    //                 keyHolder = value;
+                        if(!isNaN(screenValue)) {
+                            calc.makeAction(screenValue, "+");
+                        }
+                        
+                    }
+                    
+                    calc.currentActionKey = value;
+                    clearScreen();
+                }
+            } 
+            else {
+                screen.value = screen.value + `${value}`;
+            }
 
-    //                 if(isSomeValueOnScreen())
-    //                 {
-    //                     makeAction(value);
-    //                     clearScreen();
-    //                 }
-    //             }
-    //         } 
-    //         else 
-    //         {
-    //             screen.value = screen.value + `${value}`;
-    //         }
-    //     });
-    // }); 
+            showCalcValue();
+        });
+    }); 
 }
 
 //
