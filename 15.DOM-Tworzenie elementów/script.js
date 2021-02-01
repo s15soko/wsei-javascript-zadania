@@ -267,65 +267,94 @@ function task8()
 // #9
 function task9()
 {
-    // let root = document.getElementById("root");
+    let arrHeaders = ['Name', 'Surname', 'Age', 'Childrens'];
+    let form = document.createElement('form');
+    let createButton = document.createElement('button');
+    let moreButton = document.createElement('button');
+    let deleteButton = document.createElement('button');
 
-    // let storage = [];
+    createButton.textContent = 'Create table';
+    moreButton.textContent = 'More rows';
+    deleteButton.textContent = 'Delete';
 
-    // let form = createNewElement("div");
-    // let inpName = createNewElement("input");
-    // inpName.placeholder = "Imię";
-    // let inpLastName = createNewElement("input");
-    // inpLastName.placeholder = "Nazwisko";
-    // let inpAge = createNewElement("input");
-    // inpAge.placeholder = "Wiek";
-    // let inpChildrenCount = createNewElement("input");
-    // inpChildrenCount.placeholder = "Ilość dzieci";
+    form.appendChild(createFields(arrHeaders));
+    form.appendChild(moreButton);
+    form.appendChild(createButton);
 
-    // form.appendChild(inpName);
-    // form.appendChild(inpLastName);
-    // form.appendChild(inpAge);
-    // form.appendChild(inpChildrenCount);
+    moreButton.addEventListener('click', () => {
+        let addRows = document.querySelectorAll('.more-rows');
+        let lastRow = addRows[addRows.length - 1];
+        lastRow.after(createFields(arrHeaders));
+    });
 
-    // let table = createNewElement("table");
-    // let tr = createNewElement("tr");
-    // let thName = createNewElement("th");
-    // thName.innerHTML = "Imię";
-    // let thLastName = createNewElement("th");
-    // thLastName.innerHTML = "Nazwisko";
-    // let thAge = createNewElement("th");
-    // thAge.innerHTML = "Wiek";
-    // let thChildrenCount = createNewElement("th");
-    // thChildrenCount.innerHTML = "Ilość dzieci";
-    // tr.appendChild(thName);
-    // tr.appendChild(thLastName);
-    // tr.appendChild(thAge);
-    // tr.appendChild(thChildrenCount);
-    
-    // let tHead = createNewElement("thead");
-    // tHead.appendChild(tr);
-    // table.appendChild(tHead);
+    form.addEventListener('submit', createTable);
 
-    // let btnCreate = createNewElement("button");
-    // btnCreate.innerHTML = "Utwórz";
-    // let btnMore = createNewElement("button");
-    // btnMore.innerHTML = "Więcej";
+    function createFields(el) {
+        let fieldsRow = document.createElement('div');
+        fieldsRow.className = 'more-rows';
+        el.forEach((value) => {
+            let field = document.createElement('input');
+            field.placeholder = value;
+            fieldsRow.appendChild(field);
+        });
+        return fieldsRow;
+    }
 
-    // root.appendChild(form);
-    // root.appendChild(btnCreate);
-    // root.appendChild(btnMore);
+    function createTable(e) {
+        e.preventDefault();
 
-    // function createNew()
-    // {
-    //     storage[i] = 1;
-    // }
+        let defaultTable = document.getElementById('def-table');
 
-    // btnCreate
+        if (defaultTable) {
+            defaultTable.remove();
+        }
+
+        let table = document.createElement('table');
+        let tbody = document.createElement('tbody');
+        let thead = document.createElement('thead');
+        let rows = document.querySelectorAll('.more-rows');
+
+        arrHeaders.forEach((header) => {
+            let th = document.createElement('th');
+            th.textContent = header;
+            thead.appendChild(th);
+        });
+
+        rows.forEach((row) => {
+            let tr = document.createElement('tr');
+            let children = Array.from(row.children);
+            let values = children.map((child) => child.value);
+            values.forEach((value) => {
+                let td = document.createElement('td');
+                td.textContent = value;
+                tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+        });
+
+        table.id = 'def-table';
+        table.appendChild(thead);
+        table.appendChild(tbody);
+
+        createButton.after(table);
+
+        form.reset();
+    }
+    document.getElementById('root').appendChild(form);
 
 }
 
+// #10
 function task10()
 {
-
+    let creatorFields = document.querySelectorAll('.more-rows input');
+    creatorFields.forEach((field) => {
+      field.addEventListener('input', (event) => {
+        let formattedText =
+          field.value.charAt(0).toUpperCase() + field.value.slice(1);
+        event.target.value = formattedText;
+      });
+    });
 }
 
 // #11
